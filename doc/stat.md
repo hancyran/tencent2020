@@ -1,10 +1,4 @@
-# tencent2020
-腾讯算法大赛2020
-
-***
-# Usage
-* Move Train Dataset to data/train
-* Move Test Dataset to data/test
+# Stat
 
 ***
 ### user.csv: 900000 rows
