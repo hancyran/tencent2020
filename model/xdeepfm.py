@@ -41,6 +41,7 @@ class Model(BaseModel):
 
         emb_inp_v2 = tf.gather(self.emb_v2, self.features)
         self.emb_inp_v2 = emb_inp_v2
+
         # DNN
         dnn_input = tf.reshape(emb_inp_v2, [-1, hparams.feature_nums * hparams.k])
         input_size = int(dnn_input.shape[-1])

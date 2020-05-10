@@ -21,7 +21,7 @@ feats = Features()
 
 # hyper params
 hparam = tf.contrib.training.HParams(
-    model='CIN',
+    model=cfg['model'],
     norm=True,
     batch_norm_decay=0.9,
     hidden_size=[1024, 512],
@@ -47,13 +47,13 @@ hparam = tf.contrib.training.HParams(
     init_method='tnormal',
     cross_activation='relu',
     init_value=0.001,
-    single_features=feats.single_features,
+    single_features=None,
     cross_features=feats.cross_features,
     multi_features=feats.multi_features,
     dense_features=feats.dense_features,
     kv_features=feats.kv_features,
-    label='imp',
-    model_name="CIN")
+    label=['age', 'gender'],
+    model_name=cfg['model'])
 utils.print_hparams(hparam)
 
 ####################################################################################

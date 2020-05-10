@@ -105,6 +105,10 @@ class BaseModel(object):
         logit = tf.nn.dropout(x=logit, keep_prob=self.layer_keeps[layer_idx])
         return logit
 
+    def reload(self):
+        hparams = self.hparams
+        self.saver.restore(self.sess, 'model_tmp/model' + hparams.model_name)
+
     def batch_norm_layer(self, x, train_phase, scope_bn):
         z = tf.cond(train_phase, lambda: batch_norm(x, decay=self.hparams.batch_norm_decay, center=True, scale=True,
                                                     updates_collections=None, is_training=True, reuse=None,
@@ -121,6 +125,9 @@ class BaseModel(object):
         clipped_grads, gradient_norm = tf.clip_by_global_norm(gradients, 5.0)
         self.grad_norm = gradient_norm
         self.update = opt.apply_gradients(zip(clipped_grads, params))
+
+    # =======================================================================================================================
+    # =======================================================================================================================
 
     def train(self, train, dev):
         hparams = self.hparams
@@ -198,9 +205,8 @@ class BaseModel(object):
         else:
             return
 
-    def reload(self):
-        hparams = self.hparams
-        self.saver.restore(self.sess, 'model_tmp/model' + hparams.model_name)
+    # =======================================================================================================================
+    # =======================================================================================================================
 
     def infer(self, dev):
         hparams = self.hparams
@@ -256,6 +262,9 @@ class BaseModel(object):
         del dev['temp']
         hparams.batch_size = a
         return preds
+
+    # =======================================================================================================================
+    # =======================================================================================================================
 
     def eval(self, T, dev, hparams, sess):
         preds = self.infer(dev)

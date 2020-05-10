@@ -17,6 +17,7 @@ def build_model(hparams):
         model = xdeepfm.Model(hparams)
     else:
         raise Exception('[!] No Such Type of Model')
+
     config_proto = tf.ConfigProto(log_device_placement=0, allow_soft_placement=0)
     config_proto.gpu_options.allow_growth = True
     sess = tf.Session(config=config_proto)
